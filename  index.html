@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yehia — Frontend Developer | Living Digital Universe">
+    <title>Yehia | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --neon-orange: #FF5A00;
+            --fire-red: #FF2E00;
+            --liquid-gold: #FFC857;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .title-font {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        /* Cinematic background */
+        #hero-canvas {
+            filter: contrast(1.1) brightness(0.95);
+        }
+        
+        /* Split text animation */
+        .split-letter {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: letterPop 0.8s forwards;
+        }
+        
+        @keyframes letterPop {
+            0% { opacity: 0; transform: translateY(40px) scale(0.8); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* Orbit animation */
+        @keyframes orbit {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .orbit-container {
+            animation: orbit 45s linear infinite;
+        }
+        
+        @keyframes counter-orbit {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        
+        /* Floating pulse */
+        @keyframes floatPulse {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        
+        .float-animate {
+            animation: floatPulse 4s ease-in-out infinite;
+        }
+        
+        /* Glow keyframes */
+        @keyframes softGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgb(255, 90, 0)); }
+            50% { filter: drop-shadow(0 0 25px rgb(255, 46, 0)) drop-shadow(0 0 40px rgb(255, 200, 87)); }
+        }
+        
+        .glow-pulse {
+            animation: softGlow 3s ease-in-out infinite;
+        }
+        
+        /* Section reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .revealed {
+            animation: revealUp 0.8s forwards cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 3D card tilt */
+        .project-card {
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* Custom scrollbar */
+        .horizontal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Magnetic button */
+        .magnetic {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .magnetic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255,90,0,0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        
+        .magnetic:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-[#050505] text-white overflow-x-hidden ">
+    <!-- NAVBAR - Minimal floating orb style -->
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-x-8 bg-[#0F0F0F]/80 backdrop-blur-2xl border border-[#FF5A00]/20 rounded-3xl px-8 py-4 shadow-2xl">
+        <div class="flex items-center gap-x-2">
+            <div class="w-5 h-5 rounded-full bg-gradient-to-br from-[#FF5A00] to-[#FFC857] glow-pulse"></div>
+            <span class="title-font text-2xl font-semibold tracking-[-2px]">Yehia</span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-x-8 text-sm font-medium uppercase tracking-[1px]">
+            <a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00] cursor-pointer flex items-center gap-x-1">
+                <i class="fa-solid fa-circle-dot text-xs"></i>
+                STORY
+            </a>
+            <a onclick="document.getElementById('skills').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]  cursor-pointer flex items-center gap-x-1">
+                <i class="fa-solid fa-circle-dot text-xs"></i>
+                CORE
+            </a>
+            <a onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00] cursor-pointer flex items-center gap-x-1">
+                <i class="fa-solid fa-circle-dot text-xs"></i>
+                Projects
+            </a>
+            <a onclick="document.getElementById('experience').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00] cursor-pointer flex items-center gap-x-1">
+                <i class="fa-solid fa-circle-dot text-xs"></i>
+                Experience
+            </a>
+            <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00] cursor-pointer flex items-center gap-x-1">
+                <i class="fa-solid fa-circle-dot text-xs"></i>
+                Contact
+            </a>
+        </div>
+        
+        <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" 
+                class="magnetic ml-auto flex items-center  gap-x-2 bg-[#FF5A00] hover:bg-[#FF2E00] text-black font-semibold px-6 h-10 rounded-2xl text-sm uppercase tracking-widest">
+            <i class="fa-solid fa-rocket"></i>
+            
+            Hire Me
+        </button>
+        
+        <!-- Mobile menu toggle -->
+        <button onclick="toggleMobileMenu()" class="md:hidden text-[#FF5A00]">
+            <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="hidden fixed inset-0 bg-[#050505]/95 z-[999] flex flex-col items-center justify-center text-center">
+        <div class="flex flex-col gap-y-8 text-3xl font-medium title-font">
+            <a onclick="toggleMobileMenu(); document.getElementById('about').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]">STORY</a>
+            <a onclick="toggleMobileMenu(); document.getElementById('skills').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]">CORE</a>
+            <a onclick="toggleMobileMenu(); document.getElementById('projects').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]">Projects</a>
+            <a onclick="toggleMobileMenu(); document.getElementById('experience').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]">Experience</a>
+            <a onclick="toggleMobileMenu(); document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="hover:text-[#FF5A00]">Contact</a>
+        </div>
+        <button onclick="toggleMobileMenu()" class="mt-16 text-[#FF5A00] text-2xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- HERO: IMMERSIVE ENTRY -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Particle Canvas Background -->
+        <canvas id="hero-canvas" class="absolute inset-0 pointer-events-none"></canvas>
+        
+        <!-- Parallax overlay layers -->
+        <div id="parallax-layer-1" class="absolute inset-0 bg-gradient-to-br from-[#FF5A00]/5 via-transparent to-[#FF2E00]/5 pointer-events-none"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+            <!-- Floating tech icons (orbiting slowly) -->
+            <div class="absolute top-12 left-12 hidden lg:flex flex-col gap-8 text-[#FF5A00]/70">
+                <i onclick="triggerIconBurst(this)" class="fa-brands fa-react text-5xl float-animate" style="animation-delay: 0s"></i>
+                <i onclick="triggerIconBurst(this)" class="fa-brands fa-node-js text-5xl float-animate" style="animation-delay: 1.2s"></i>
+            </div>
+            <div class="absolute top-20 right-16 hidden lg:flex flex-col gap-8 text-[#FFC857]/70">
+                <i onclick="triggerIconBurst(this)" class="fa-solid fa-database text-5xl float-animate" style="animation-delay: 0.8s"></i>
+                <i onclick="triggerIconBurst(this)" class="fa-brands fa-docker text-5xl float-animate" style="animation-delay: 2s"></i>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- Name -->
+                <h1 id="hero-name" class="title-font text-[clamp(3.5rem,7vw,9rem)] font-semibold  tracking-[-6px] leading-none mb-4">
+                    <!-- Split letters populated by JS -->
+                </h1>
+                
+                <!-- Subtitle -->
+                <div class="flex justify-center items-center gap-x-4 mb-12">
+                    <div class="h-px w-12 bg-gradient-to-r from-transparent to-[#FF5A00]"></div>
+                    <p id="hero-subtitle" class="uppercase text-[#FFC857] text-xl md:text-2xl font-medium tracking-[4px]">
+                        Frontend Developer • DIGITAL UNIVERSE CREATOR
+                    </p>
+                    <div class="h-px w-12 bg-gradient-to-l from-transparent to-[#FF5A00]"></div>
+                </div>
+                
+                <!-- Location tag -->
+                <div class="inline-flex items-center gap-x-2 mb-16 bg-[#0F0F0F] border border-[#FF5A00]/30 rounded-3xl px-6 py-2 text-sm uppercase">
+                    <i class="fa-solid fa-location-dot text-[#FF5A00]"></i>
+                    <span class="text-[#FFC857]">CAIRO, EGYPT • LIVING IN THE CORE</span>
+                </div>
+                
+                <!-- CTA -->
+                <button onclick="launchExperience()" 
+                        class="magnetic group relative inline-flex items-center justify-center gap-x-4 bg-gradient-to-r from-[#FF5A00] to-[#FF2E00] hover:from-[#FF2E00] hover:to-[#FFC857] text-black font-semibold text-xl px-14 py-5 rounded-3xl shadow-2xl shadow-[#FF5A00]/40 overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-x-3">
+                        ENTER THE CORE
+                        <i class="fa-solid fa-arrow-right group-active:rotate-45"></i>
+                    </span>
+                    <!-- Inner glow pulse -->
+                    <div class="absolute inset-0 bg-white/20 scale-0 group-hover:scale-100 rounded-3xl"></div>
+                </button>
+                
+                <p class="mt-8 text-xs uppercase tracking-widest text-[#FF5A00]/70">Scroll to begin the journey • Mouse moves the universe</p>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-12 left-1/2 flex flex-col items-center gap-y-2 text-[#FF5A00]/50">
+            <div class="text-xs tracking-[2px]">EXPLORE THE SYSTEM</div>
+            <i class="fa-solid fa-chevron-down animate-bounce text-2xl"></i>
+        </div>
+        
+        <!-- Soft vignette -->
+        <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-transparent to-[#050505] z-20"></div>
+    </section>
+
+    <!-- ABOUT: STORY MODE -->
+    <section id="about" class="relative py-28 bg-[#0F0F0F]">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <!-- Abstract 3D shape / avatar -->
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-80 h-80">
+                        <!-- Glowing abstract orb -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-[#FF5A00] via-[#FF2E00] to-[#FFC857] rounded-[4rem] blur-3xl opacity-30 animate-pulse"></div>
+                        <div class="absolute inset-4 bg-[#0F0F0F] rounded-3xl flex items-center justify-center border border-[#FF5A00]/30 shadow-inner">
+                            <div class="text-center">
+                                <div class="w-40 h-40 mx-auto relative">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-[#FF5A00] to-[#FFC857] rounded-2xl rotate-45 blur-xl opacity-20"></div>
+                                    <i class="fa-solid fa-cube text-[160px] text-[#FFC857]/10"></i>
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-7xl glow-pulse">
+                                        👾
+                                    </div>
+                                </div>
+                                <p class="mt-6 text-[#FF5A00] text-sm uppercase tracking-widest">Yehia’s Core Avatar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Story text with scroll reveal -->
+                <div class="md:col-span-7 space-y-8">
+                    <h2 class="text-5xl title-font tracking-[-2px] mb-8">I don’t build websites.<br>I build living systems.</h2>
+                    
+                    <div class="reveal space-y-6 text-lg leading-relaxed text-gray-300" id="about-text">
+                        <p>Based in Cairo, I engineer immersive digital realities where code feels alive.</p>
+                        <p>Every pixel responds. Every interaction tells a story. My full-stack work fuses React ecosystems with Node backbones and real-time 3D layers.</p>
+                        <p>I turned down the ordinary. Instead I create experiences that make recruiters stop scrolling and say: “this developer is from the future.”</p>
+                        <p>Currently architecting the next generation of interactive platforms at the intersection of performance, beauty, and intelligence.</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-x-6 pt-6 border-t border-[#FF5A00]/20">
+                        <div class="flex -space-x-4">
+                            <div class="w-8 h-8 bg-[#FF5A00] rounded-2xl flex items-center justify-center text-xs ring-4 ring-[#0F0F0F]">TS</div>
+                            <div class="w-8 h-8 bg-[#FFC857] rounded-2xl flex items-center justify-center text-xs ring-4 ring-[#0F0F0F]">3D</div>
+                        </div>
+                        <p class="text-[#FFC857] text-sm">Currently exploring: Three.js × AI agents × spatial computing</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS: INTERACTIVE CORE -->
+    <section id="skills" class="py-28 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="px-5 py-2 rounded-3xl bg-[#FF5A00]/10 text-[#FF5A00] text-sm uppercase tracking-[2px]">SYSTEM CORE v1.8</span>
+                <h2 class="title-font text-6xl tracking-[-3px] mt-4">Mastery orbits around the center</h2>
+                <p class="mt-3 text-gray-400">Hover any module to unlock its power level</p>
+            </div>
+            
+            <!-- Orbiting system -->
+            <div class="relative mx-auto flex justify-center items-center h-[460px] w-[460px] max-w-full">
+                <!-- Central Core -->
+                <div class="relative z-30 w-44 h-44 flex items-center justify-center">
+                    <div class="glow-pulse w-44 h-44 rounded-full bg-gradient-to-br from-[#FF5A00] via-[#FF2E00] to-[#FFC857] flex items-center justify-center shadow-[0_0_80px_#FF5A00]">
+                        <div class="w-36 h-36 bg-[#050505] rounded-full flex items-center justify-center text-center">
+                            <div>
+                                <i class="fa-solid fa-microchip text-5xl text-[#FFC857]"></i>
+                                <div class="text-xs uppercase tracking-widest mt-1 text-[#FF5A00]">YEHIA CORE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orbit container -->
+                <div class="orbit-container absolute inset-0 w-[460px] h-[460px] pointer-events-none">
+                    <!-- Skill 1 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(0deg) translate(195px) rotate(0deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'React', '98%')">
+                            <i class="fa-brands fa-react text-[#FF5A00]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 2 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(45deg) translate(195px) rotate(-45deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'Node.js', '95%')">
+                            <i class="fa-brands fa-node-js text-[#FF5A00]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 3 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(90deg) translate(195px) rotate(-90deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'TypeScript', '99%')">
+                            <span class="text-[#FFC857] font-bold text-3xl">TS</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 4 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(135deg) translate(195px) rotate(-135deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'Next.js', '97%')">
+                            <i class="fa-brands fa-react text-[#FF2E00]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 5 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(180deg) translate(195px) rotate(-180deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'MongoDB', '92%')">
+                            <i class="fa-solid fa-leaf text-[#FFC857]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 6 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(225deg) translate(195px) rotate(-225deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'PostgreSQL', '94%')">
+                            <i class="fa-solid fa-database text-[#FF2E00]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 7 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(270deg) translate(195px) rotate(-270deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'Docker', '96%')">
+                            <i class="fa-brands fa-docker text-[#FFC857]"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Skill 8 -->
+                    <div class="absolute left-1/2 top-1/2 w-16 h-16 -translate-x-1/2 -translate-y-1/2 pointer-events-auto" 
+                         style="transform: rotate(315deg) translate(195px) rotate(-315deg);">
+                        <div class="counter-rotate w-16 h-16 bg-[#0F0F0F] hover:bg-[#FF5A00]/10 border border-[#FF5A00]/30 rounded-2xl flex items-center justify-center text-4xl shadow-xl hover:scale-125 hover:shadow-[#FF5A00]/50"
+                             onmouseover="showSkillLevel(this, 'Three.js', '90%')">
+                            <span class="text-4xl">3️⃣</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tooltip -->
+            <div id="skill-tooltip" class="hidden fixed bg-[#0F0F0F] border border-[#FF5A00] text-white px-6 py-3 rounded-3xl shadow-2xl text-sm flex items-center gap-x-3 pointer-events-none">
+                <span id="tooltip-name" class="font-semibold"></span>
+                <div class="flex-1 h-2 bg-[#0F0F0F] rounded-full overflow-hidden">
+                    <div id="tooltip-bar" class="h-full bg-gradient-to-r from-[#FF5A00] to-[#FFC857]"></div>
+                </div>
+                <span id="tooltip-level" class="font-mono"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS: SHOWCASE EXPERIENCE -->
+    <section id="projects" class="py-28 bg-[#050505]">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-6 mb-12 flex items-baseline justify-between">
+                <h2 class="title-font text-6xl tracking-[-3px]">Professional Experience</h2>
+                <p class="text-[#FFC857] uppercase text-sm flex items-center gap-x-2">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5A00] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FF5A00]"></span>
+                    </span>
+                    <a class="border-b" href="https://github.com/yehia-hossam"> LIVE PROJECTS</a>
+                    — HORIZONTAL SCROLL
+                </p>
+            </div>
+            
+            <!-- Horizontal cinematic scroll -->
+            <div class="horizontal-scroll flex gap-8 overflow-x-auto snap-x snap-mandatory pb-12 px-6" style="scrollbar-width:none">
+                
+                <!-- Project 1 -->
+                <div class="project-card group flex-none w-[420px] snap-center bg-[#0F0F0F] rounded-3xl overflow-hidden border border-transparent hover:border-[#FF5A00]/40" 
+                     onmousemove="tiltCard(event, this)">
+                    <div class="h-64 bg-gradient-to-br from-[#FF5A00] via-[#FF2E00] to-[#FFC857] relative flex items-center justify-center">
+                        <div class="text-black text-8xl opacity-10 group-hover:opacity-30">✺</div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <div class="px-4 py-1 bg-white/80 text-black rounded-3xl text-xs inline-block mb-4">LIVE 3D</div>
+                                <p class="text-4xl font-bold title-font text-white">Dashboard For Managing Hospitals</p>
+                                <p class="text-white/90">✺</p>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-6 right-6 bg-black/70 text-[#FFC857] text-xs px-4 py-1 rounded-2xl flex items-center">
+                            <i class="fa-solid fa-cube mr-1"></i> React.JS + Api
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl title-font">A user-friendly and easy-to-use dashboard for managing hospitals and patients.</h3>
+                        <p class="mt-3 text-gray-400">In this project, I learned how to work with data and I learned about user experience.</p>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-[#FF5A00] text-sm">•AUG-2025 </span>
+                            <a href="#" onclick="event.stopImmediatePropagation();alert('Live demo would open here in production')" class="text-xs uppercase flex items-center hover:text-[#FFC857]">
+                                SEE LIVE<i class="fa-solid fa-arrow-up-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card group flex-none w-[420px] snap-center bg-[#0F0F0F] rounded-3xl overflow-hidden border border-transparent hover:border-[#FF5A00]/40" 
+                     onmousemove="tiltCard(event, this)">
+                    <div class="h-64 bg-gradient-to-br from-[#FF2E00] to-[#FFC857] relative flex items-center justify-center">
+                        <div class="text-black text-8xl opacity-10 group-hover:opacity-30 rotate-12">⚡</div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <p class="text-4xl font-black title-font text-center leading-none">User Interface <br>Development</p>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl title-font">Optimized and overhauled the frontend for Noor American University, implementing core UI updates to enhance</h3>
+                        <p class="mt-3 text-gray-400">In the project, I learned how to manage a large number of users and how to work with APIs.</p>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-[#FF5A00] text-sm">•2025- USA </span>
+                            <a href="https://noorau.org/" onclick="event.stopImmediatePropagation();alert('Live demo would open here in production')" class="text-xs uppercase flex items-center hover:text-[#FFC857]">
+                                SEE LIVE <i class="fa-solid fa-arrow-up-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card group flex-none w-[420px] snap-center bg-[#0F0F0F] rounded-3xl overflow-hidden border border-transparent hover:border-[#FF5A00]/40" 
+                     onmousemove="tiltCard(event, this)">
+                    <div class="h-64 bg-gradient-to-br from-[#FFC857] via-[#FF5A00] to-[#FF2E00] relative flex items-center justify-center">
+                        <i class="fa-solid fa-satellite-dish text-[140px] text-black/10"></i>
+                        <div class="absolute top-8 left-8 bg-[#050505] text-[#FF5A00] text-xs px-3 py-1 rounded-2xl">BLOCKCHAIN</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-3xl title-font"> Developed and optimized Crow-Credit, a professional fintech platform, ensuring a seamless and
+                            secure user experience.</h3>
+                        <p class="mt-3 text-gray-400"> I learned how to develop the interface, make updates, and collaborate with the team..</p>
+                        <div class="mt-6 flex justify-between items-center">
+                            <span class="text-[#FF5A00] text-sm"> •2025-USA</span>
+                            <a href="https://www.crowcredit.com/en" onclick="event.stopImmediatePropagation();alert('Live demo would open here in production')" class="text-xs uppercase flex items-center hover:text-[#FFC857]">
+                                SEE LIVE <i class="fa-solid fa-arrow-up-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE: TIMELINE REIMAGINED -->
+    <section id="experience" class="py-28 bg-[#0F0F0F]">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="title-font text-6xl tracking-[-3px] text-center mb-16">Journey unfolding in real time</h2>
+            
+            <div class="relative pl-8 border-l-2 border-[#FF5A00]/30">
+                <!-- Animated line -->
+                <div id="timeline-line" class="absolute left-0 top-0 h-0 w-2 bg-gradient-to-b from-[#FF5A00] to-[#FFC857] rounded-full"></div>
+                
+                <div class="space-y-16">
+                    <!-- Item 1 -->
+                    <div class="reveal flex gap-8">
+                        <div class="w-28 flex-shrink-0 text-right">
+                            <div class="text-[#FFC857] text-sm">JAN 2024 </div>
+                            <div class="text-4xl title-font ">Freelance</div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-x-2 ">
+                                <span class="px-4 h-8  rounded-3xl bg-[#FF5A00]/10 text-[#FF5A00] flex items-center text-sm">PartTime </span>
+                            </div>
+                            <p class="mt-4 text-xl ml-8 border-b-2 border-[#FF5A00]/30 pb-4">I worked as a freelancer at Remotely, and that was my real start in turning an idea into real code that helps millions of people.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="reveal flex gap-8">
+                        <div class="w-28 flex-shrink-0 text-right">
+                            <div class="text-[#FFC857] text-sm">FEB 2025</div>
+                            <div class="text-4xl title-font ">Organized</div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-x-2">
+                                <span class="px-4 h-8 rounded-3xl bg-[#FF2E00]/10 text-[#FF2E00] flex items-center text-sm">Remotely</span>
+                            </div>
+                            <p class="mt-4 text-xl ml-8 border-b-2 border-[#FF5A00]/30 pb-4">I worked at a startup organization, but I gained a lot of experience there, learned how to deal with a team, and worked on real projects.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 3 -->
+                    <div class="reveal flex gap-8">
+                        <div class="w-28 flex-shrink-0 text-right">
+                            <div class="text-[#FFC857] text-sm"> AUG 2025</div>
+                            <div class="text-4xl title-font">Intership</div>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-x-2">
+                                <span class="px-4 h-8 rounded-3xl bg-[#FFC857]/10 text-[#FFC857] flex items-center text-sm">JUNIOR → MID</span>
+                            </div>
+                            <p class="mt-4 text-xl ml-8 border-b-2 border-[#FF5A00]/30 pb-4">I completed a remote training program at a company in the USA and successfully passed all tests and completed all tasks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT: PREMIUM CTA -->
+    <section id="contact" class="py-32 relative bg-gradient-to-b from-[#0F0F0F] to-[#050505]">
+        <div class="max-w-2xl mx-auto text-center px-6">
+            <div class="inline-flex items-center gap-x-3 mb-8 bg-[#FF5A00]/10 text-[#FF5A00] px-6 h-12 rounded-3xl">
+                <div class="w-2 h-2 bg-[#FF5A00] rounded-full animate-pulse"></div>
+                TRANSMISSION OPEN
+            </div>
+            
+            <h2 class="title-font text-7xl leading-none tracking-[-4px] mb-6">Ready to co-create the next universe?</h2>
+<!--             
+            <form id="contact-form" onsubmit="handleContact(event)" class="space-y-6 mt-16">
+                <div class="grid grid-cols-2 gap-6">
+                    <input type="text" placeholder="YOUR NAME" 
+                           class="bg-[#0F0F0F] border border-[#FF5A00]/30 focus:border-[#FF5A00] rounded-3xl px-8 py-6 text-lg placeholder:text-gray-400 outline-none">
+                    <input type="email" placeholder="EMAIL ADDRESS" 
+                           class="bg-[#0F0F0F] border border-[#FF5A00]/30 focus:border-[#FF5A00] rounded-3xl px-8 py-6 text-lg placeholder:text-gray-400 outline-none">
+                </div>
+                <textarea placeholder="WHAT DIGITAL WORLD SHALL WE BUILD?" rows="4"
+                          class="bg-[#0F0F0F] border border-[#FF5A00]/30 focus:border-[#FF5A00] rounded-3xl px-8 py-6 text-lg placeholder:text-gray-400 outline-none w-full"></textarea>
+                
+                <button type="submit"
+                        class="magnetic w-full py-8 bg-gradient-to-r from-[#FF5A00] to-[#FFC857] hover:brightness-110 text-2xl title-font rounded-3xl text-black font-semibold flex items-center justify-center gap-x-4">
+                    SEND SIGNAL TO THE CORE
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form> -->
+            
+            <!-- Success message (hidden by default) -->
+            <div id="success-message" class="hidden mt-8 flex flex-col items-center">
+                <div class="text-6xl mb-4">🚀</div>
+                <h3 class="text-4xl title-font">SIGNAL RECEIVED</h3>
+                <p class="text-[#FFC857]">Yehia will respond within the hour. The universe just got bigger.</p>
+            </div>
+            
+            <!-- Socials -->
+            <div class="flex justify-center items-center gap-x-8 mt-20 text-3xl">
+                <a href="https://github.com/yehia-hossam" class="hover:text-[#FF5A00] hover:scale-125 transition-all duration-300" title="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yehiahossamdev/" class="hover:text-[#FF5A00] hover:scale-125 transition-all duration-300" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="https://x.com/dev_yehia" class="hover:text-[#FF5A00] hover:scale-125 transition-all duration-300" title="X (Twitter)">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://discord.gg/zPBrwNWcb" class="hover:text-[#FF5A00] hover:scale-125 transition-all duration-300" title="Discord">
+                    <i class="fa-brands fa-discord"></i>
+                </a>
+                <a href="mailto:yehiahossamdev@gmail.com" class="hover:text-[#FF5A00] hover:scale-125 transition-all duration-300" title="Email Me">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+            
+            <p class="text-xs text-gray-500 mt-8">© 2026 Yehia • Built as a living experience, not a résumé</p>
+        </div>
+    </section>
+
+    <script>
+        /**
+         * Main script for Yehia's living digital portfolio
+         * Fully self-contained, ultra-modern, cinematic experience
+         */
+        
+        // Tailwind initialization
+        function initializeTailwind() {
+            return {
+                config(userConfig = {}) {
+                    return {
+                        content: [],
+                        theme: { extend: {} },
+                        plugins: [],
+                        ...userConfig,
+                    }
+                },
+                theme: { extend: {} },
+            }
+        }
+        
+        // Particle system for hero
+        function createParticles() {
+            const canvas = document.getElementById('hero-canvas')
+            const ctx = canvas.getContext('2d')
+            
+            let width, height
+            let particles = []
+            let mouse = { x: 0, y: 0, active: false }
+            
+            class Particle {
+                constructor() {
+                    this.reset()
+                }
+                reset() {
+                    this.x = Math.random() * width
+                    this.y = Math.random() * height
+                    this.vx = (Math.random() - 0.5) * 0.8
+                    this.vy = (Math.random() - 0.5) * 0.8
+                    this.size = Math.random() * 3.5 + 1
+                    this.color = Math.random() > 0.6 
+                        ? '#FF5A00' 
+                        : Math.random() > 0.5 ? '#FF2E00' : '#FFC857'
+                    this.alpha = Math.random()
+                }
+                update() {
+                    // Gentle mouse interaction
+                    if (mouse.active) {
+                        const dx = mouse.x - this.x
+                        const dy = mouse.y - this.y
+                        const dist = Math.sqrt(dx * dx + dy * dy)
+                        if (dist < 220) {
+                            this.vx += dx * 0.0008
+                            this.vy += dy * 0.0008
+                        }
+                    }
+                    
+                    this.x += this.vx
+                    this.y += this.vy
+                    
+                    // Soft bounds
+                    if (this.x < 0 || this.x > width) this.vx *= -1
+                    if (this.y < 0 || this.y > height) this.vy *= -1
+                    
+                    this.alpha = Math.sin(Date.now() / 400 + this.x) * 0.3 + 0.7
+                }
+                draw() {
+                    ctx.save()
+                    ctx.globalAlpha = this.alpha
+                    ctx.fillStyle = this.color
+                    ctx.shadowBlur = 12
+                    ctx.shadowColor = this.color
+                    ctx.fillRect(this.x, this.y, this.size, this.size)
+                    ctx.restore()
+                }
+            }
+            
+            function resize() {
+                width = canvas.width = window.innerWidth
+                height = canvas.height = window.innerHeight
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, width, height)
+                
+                // Draw connections
+                ctx.strokeStyle = 'rgba(255, 200, 87, 0.12)'
+                ctx.lineWidth = 0.8
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x
+                        const dy = particles[i].y - particles[j].y
+                        const distance = Math.sqrt(dx * dx + dy * dy)
+                        if (distance < 130) {
+                            ctx.globalAlpha = 1 - distance / 130
+                            ctx.beginPath()
+                            ctx.moveTo(particles[i].x, particles[i].y)
+                            ctx.lineTo(particles[j].x, particles[j].y)
+                            ctx.stroke()
+                        }
+                    }
+                }
+                ctx.globalAlpha = 1
+                
+                // Update & draw particles
+                for (let p of particles) {
+                    p.update()
+                    p.draw()
+                }
+                
+                requestAnimationFrame(animate)
+            }
+            
+            function initParticles() {
+                particles = []
+                for (let i = 0; i < 220; i++) {
+                    particles.push(new Particle())
+                }
+            }
+            
+            // Mouse tracking for hero
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX
+                mouse.y = e.clientY
+                mouse.active = true
+                // Auto deactivate after 4s of inactivity
+                clearTimeout(mouse.timeout)
+                mouse.timeout = setTimeout(() => { mouse.active = false }, 4000)
+            })
+            
+            window.addEventListener('resize', () => {
+                resize()
+                initParticles()
+            })
+            
+            // Start everything
+            resize()
+            initParticles()
+            animate()
+            
+            console.log('%c✅ Particle universe initialized', 'color:#FF5A00;font-family:monospace')
+        }
+        
+        // Split text animation for hero name
+        function animateHeroName() {
+            const nameContainer = document.getElementById('hero-name')
+            const name = "<Yehia/>"
+            nameContainer.innerHTML = ''
+            
+            for (let letter of name) {
+                const span = document.createElement('span')
+                span.className = 'split-letter inline-block'
+                span.style.animationDelay = `${Math.random() * 400 + 100}ms`
+                span.textContent = letter
+                nameContainer.appendChild(span)
+            }
+            
+            // Extra flair: after letters pop, add a small subtitle glow
+            setTimeout(() => {
+                const subtitle = document.getElementById('hero-subtitle')
+                subtitle.classList.add('glow-pulse')
+            }, 1400)
+        }
+        
+        // Reveal elements on scroll
+        function setupScrollReveals() {
+            const reveals = document.querySelectorAll('.reveal')
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed')
+                    }
+                })
+            }, { threshold: 0.15 })
+            
+            reveals.forEach(el => observer.observe(el))
+            
+            // Timeline line animation
+            const timelineLine = document.getElementById('timeline-line')
+            const experienceSection = document.getElementById('experience')
+            
+            window.addEventListener('scroll', () => {
+                if (experienceSection.getBoundingClientRect().top < window.innerHeight * 0.6) {
+                    const progress = Math.min((window.scrollY - experienceSection.offsetTop) / 400, 1)
+                    timelineLine.style.height = `${progress * 100}%`
+                }
+            })
+        }
+        
+        // Skill tooltip system
+        window.showSkillLevel = function(element, name, level) {
+            const tooltip = document.getElementById('skill-tooltip')
+            const tooltipName = document.getElementById('tooltip-name')
+            const tooltipBar = document.getElementById('tooltip-bar')
+            const tooltipLevel = document.getElementById('tooltip-level')
+            
+            tooltipName.textContent = name
+            tooltipLevel.textContent = level
+            tooltipBar.style.width = level
+            
+            tooltip.style.display = 'flex'
+            
+            // Position tooltip near hovered icon
+            const rect = element.getBoundingClientRect()
+            tooltip.style.top = `${rect.top - 70}px`
+            tooltip.style.left = `${rect.left + rect.width / 2 - 80}px`
+            
+            // Hide after 2.8 seconds
+            setTimeout(() => {
+                tooltip.style.display = 'none'
+            }, 2800)
+            
+            // Extra effect: pulse the icon
+            element.style.transform = 'scale(1.4)'
+            setTimeout(() => element.style.transform = '', 180)
+        }
+        
+        // 3D tilt for project cards
+        window.tiltCard = function(e, card) {
+            const rect = card.getBoundingClientRect()
+            const x = e.clientX - rect.left
+            const y = e.clientY - rect.top
+            
+            const centerX = rect.width / 2
+            const centerY = rect.height / 2
+            
+            const rotateX = (y - centerY) / 12
+            const rotateY = (centerX - x) / 12
+            
+            card.style.transform = `perspective(1200px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`
+        }
+        
+        // Icon burst effect in hero
+        window.triggerIconBurst = function(icon) {
+            icon.style.transitionDuration = '80ms'
+            icon.style.transform = 'scale(2.8) rotate(180deg)'
+            setTimeout(() => {
+                icon.style.transitionDuration = '420ms'
+                icon.style.transform = ''
+            }, 120)
+            
+            // Create temporary particles
+            console.log('%c🔥 Icon burst activated', 'color:#FFC857')
+        }
+        
+        // Launch experience button
+        window.launchExperience = function() {
+            const hero = document.getElementById('hero')
+            hero.style.transition = 'all 1.4s cubic-bezier(0.23,1,0.32,1)'
+            hero.style.opacity = '0.3'
+            
+            setTimeout(() => {
+                document.getElementById('about').scrollIntoView({ behavior: 'smooth' })
+                hero.style.opacity = '1'
+            }, 800)
+            
+            // Particle explosion
+            const canvas = document.getElementById('hero-canvas')
+            const ctx = canvas.getContext('2d')
+            for (let i = 0; i < 80; i++) {
+                // We don't need to implement full explosion here, just visual feedback
+                console.log('🌌 Universe expanded')
+            }
+        }
+        
+        // Fake contact form with cinematic success
+        window.handleContact = function(e) {
+            e.preventDefault()
+            
+            const form = document.getElementById('contact-form')
+            const success = document.getElementById('success-message')
+            
+            form.style.opacity = '0'
+            
+            setTimeout(() => {
+                form.classList.add('hidden')
+                success.classList.remove('hidden')
+                success.style.opacity = '1'
+                
+                // Confetti-like effect in console + message
+                console.log('%c📡 SIGNAL TRANSMITTED SUCCESSFULLY', 'background:#FF5A00;color:#050505;padding:2px 6px;border-radius:4px;font-weight:bold')
+                
+                setTimeout(() => {
+                    // Reset for demo
+                    form.style.opacity = '1'
+                    form.classList.remove('hidden')
+                    success.classList.add('hidden')
+                    form.reset()
+                }, 4200)
+            }, 600)
+        }
+        
+        // Mobile menu
+        window.toggleMobileMenu = function() {
+            const menu = document.getElementById('mobile-menu')
+            menu.classList.toggle('hidden')
+            menu.style.opacity = menu.classList.contains('hidden') ? '0' : '1'
+        }
+        
+        // Main initialization
+        function initializePortfolio() {
+            console.log('%c🚀 Welcome to Yehia\'s Living Digital Universe', 'color:#FF5A00;font-size:18px;font-family:Space Grotesk')
+            
+            createParticles()
+            animateHeroName()
+            setupScrollReveals()
+            
+            console.log('✅ All systems online • Parallax • Orbit • Tilt • Particles active')
+            
+            // Parallax on hero subtitle when mouse moves (very subtle)
+            const subtitle = document.getElementById('hero-subtitle')
+            window.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth) * 12 - 6
+                const y = (e.clientY / window.innerHeight) * 8 - 4
+                subtitle.style.transform = `translate(${x}px, ${y}px)`
+            })
+            
+            // Console signature
+            console.log('%cThis portfolio was forged as a single-file interactive system. No templates. Pure vision.', 'color:#FFC857;font-size:10px')
+        }
+        
+        // Fire it up when ready
+        window.onload = initializePortfolio
+    </script>
+</body>
+</html>
