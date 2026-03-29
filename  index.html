@@ -8,6 +8,172 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
+        html,body{
+    overflow-x:hidden;
+    max-width:100%;
+}
+
+/* ================== FLUID TYPOGRAPHY ================== */
+h1{
+    font-size: clamp(2.5rem, 6vw, 9rem) !important;
+}
+h2{
+    font-size: clamp(1.8rem, 4vw, 3.5rem) !important;
+}
+
+/* ================== NAVBAR ================== */
+@media(max-width:768px){
+    nav{
+        width:95%;
+        padding:10px 14px;
+        gap:10px;
+    }
+    nav span{
+        font-size:16px !important;
+    }
+    nav button{
+        padding:0 10px !important;
+        font-size:12px;
+    }
+}
+
+/* ================== HERO ================== */
+@media(max-width:768px){
+    #hero-subtitle{
+        font-size:14px !important;
+        letter-spacing:2px;
+    }
+}
+
+/* ================== ABOUT ================== */
+@media(max-width:768px){
+    #about .grid{
+        display:flex !important;
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+/* ================== SKILLS ORBIT ================== */
+@media(max-width:1024px){
+    #skills .relative{
+        transform:scale(0.8);
+    }
+}
+@media(max-width:768px){
+    #skills .relative{
+        transform:scale(0.65);
+    }
+}
+@media(max-width:480px){
+    #skills .relative{
+        transform:scale(0.55);
+    }
+}
+
+/* ================== PROJECT CARDS ================== */
+@media(max-width:768px){
+    .project-card{
+        width:85vw !important;
+    }
+}
+
+/* ================== EXPERIENCE ================== */
+@media(max-width:768px){
+    #experience .flex{
+        flex-direction:column;
+    }
+    #experience .w-28{
+        width:100%;
+        text-align:left;
+    }
+}
+
+/* ================== CONTACT ================== */
+@media(max-width:768px){
+    #contact h2{
+        font-size:28px !important;
+    }
+}
+
+/* ================== SECTION SPACING ================== */
+@media(max-width:768px){
+    section{
+        padding-top:80px !important;
+        padding-bottom:80px !important;
+    }
+}
+/* ================= TEXT FIX (IMPORTANT) ================= */
+
+/* HERO TITLE */
+@media(max-width:768px){
+    #hero-name{
+        letter-spacing: -2px !important;
+        line-height: 1.1 !important;
+    }
+}
+
+/* MAIN TITLES */
+@media(max-width:768px){
+    h2{
+        font-size: clamp(22px, 6vw, 32px) !important;
+        line-height: 1.3 !important;
+        letter-spacing: -1px !important;
+    }
+}
+
+/* BIG CONTACT TITLE */
+@media(max-width:768px){
+    #contact h2{
+        font-size: clamp(24px, 7vw, 36px) !important;
+        line-height: 1.2 !important;
+        letter-spacing: -1px !important;
+    }
+}
+
+/* PROJECT TITLES */
+@media(max-width:768px){
+    .project-card h3{
+        font-size: 18px !important;
+        line-height: 1.4 !important;
+    }
+}
+
+/* PARAGRAPHS */
+@media(max-width:768px){
+    p{
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+    }
+}
+
+/* SUBTITLE HERO */
+@media(max-width:768px){
+    #hero-subtitle{
+        font-size: 13px !important;
+        letter-spacing: 1px !important;
+        line-height: 1.5 !important;
+    }
+}
+
+/* EXPERIENCE TEXT */
+@media(max-width:768px){
+    #experience p{
+        font-size: 15px !important;
+        margin-left: 0 !important;
+    }
+}
+
+
+/* REMOVE TEXT OVERFLOW */
+h1, h2, h3, p{
+    word-break: break-word;
+}
+
+/* BETTER SPACING BETWEEN LINES */
+.title-font{
+    line-height: 1.2;
+}
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
         :root {
@@ -417,17 +583,34 @@
     <!-- PROJECTS: SHOWCASE EXPERIENCE -->
     <section id="projects" class="py-28 bg-[#050505]">
         <div class="max-w-screen-2xl mx-auto">
-            <div class="px-6 mb-12 flex items-baseline justify-between">
-                <h2 class="title-font text-6xl tracking-[-3px]">Professional Experience</h2>
-                <p class="text-[#FFC857] uppercase text-sm flex items-center gap-x-2">
-                    <span class="relative flex h-3 w-3">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5A00] opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FF5A00]"></span>
-                    </span>
-                    <a class="border-b" href="https://github.com/yehia-hossam"> LIVE PROJECTS</a>
-                    — HORIZONTAL SCROLL
-                </p>
-            </div>
+            <div class="px-4 md:px-6 mb-10 md:mb-12 
+            flex flex-col md:flex-row 
+            items-start md:items-baseline 
+            justify-between gap-4">
+
+    <!-- العنوان -->
+    <h2 class="title-font 
+               text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+               tracking-[-1px] md:tracking-[-3px] leading-tight">
+        Professional Experience
+    </h2>
+
+    <!-- النص الجانبي -->
+    <p class="text-[#FFC857] uppercase 
+              text-xs sm:text-sm 
+              flex items-center gap-x-2 flex-wrap">
+        
+        <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5A00] opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-[#FF5A00]"></span>
+        </span>
+
+        <a class="border-b" href="https://github.com/yehia-hossam">
+            LIVE PROJECTS
+        </a>
+
+    </p>
+</div>
             
             <!-- Horizontal cinematic scroll -->
             <div class="horizontal-scroll flex gap-8 overflow-x-auto snap-x snap-mandatory pb-12 px-6" style="scrollbar-width:none">
