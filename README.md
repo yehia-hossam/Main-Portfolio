@@ -8,6 +8,7 @@ An interactive, dark-themed portfolio website built to showcase modern frontend 
 
 ---
 
+
 ## Core Technologies
 
 * **Frontend:** Next.js, React.js, Tailwind CSS, Framer Motion
@@ -40,7 +41,7 @@ A live data visualization platform featuring predictive analytics.
 
 * **Remote Internship (US Company):** Completed specialized training, transitioning from junior to mid-level frontend development.
 * **Startup Experience:** Developed production-grade projects and collaborated within agile remote teams.
-* **Freelance Development:** Engineered responsive web experiences for global clients.
+* **Freelance Development:** Engineered responsive web experiences for global clients..
 
 ---
 
