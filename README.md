@@ -43,5 +43,5 @@ A live data visualization platform featuring predictive analytics.
 * **Startup Experience:** Developed production-grade projects and collaborated within agile remote teams.
 * **Freelance Development:** Engineered responsive web experiences for global clients..
 
----
+----
 
