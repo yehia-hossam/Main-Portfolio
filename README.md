@@ -9,7 +9,7 @@ An interactive, dark-themed portfolio website built to showcase modern frontend 
 ---
 
 
-## Core Technologies
+## Core Technologies..
 
 * **Frontend:** Next.js, React.js, Tailwind CSS, Framer Motion
 * **3D & Graphics:** Three.js
