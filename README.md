@@ -1,6 +1,6 @@
 # Yehia - Portfolio
 
-An interactive, dark-themed portfolio website built to showcase modern frontend development, featuring 3D layouts and dynamic animations.
+An interactive, dark-themed portfolio website built to showcase modern frontend development, featuring 3D layouts and dynamic animations..
 
 ---
 
